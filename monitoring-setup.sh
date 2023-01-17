@@ -3,13 +3,12 @@
 
 sudo apt install prometheus-alertmanager
 sudo apt install prometheus
-sudo wget [https://github.com/ncabatoff/process-exporter/releases/download/v0.7.10/process-exporter-0.7.10.linux-amd64.tar.gz](https://github.com/ncabatoff/process-exporter/releases/download/v0.7.10/process-exporter-0.7.10.linux-amd64.tar.gz)
+sudo wget https://github.com/ncabatoff/process-exporter/releases/download/v0.7.10/process-exporter-0.7.10.linux-amd64.tar.gz
 tar xvf process-exporter-*
 
 sudo cp ./process-exporter-*.linux-amd64/process-exporter /usr/local/bin/
 
 # Cp dans /usr/local/bin/
-sudo cp ./node_exporter-*.linux-amd64/node_exporter /usr/local/bin/
 sudo cp ./process-exporter-*.linux-amd64/process-exporter /usr/local/bin/
 
 # Creation utilisateurs dediés
@@ -26,27 +25,29 @@ sudo chown process-exporter:process-exporter /usr/local/bin/process-exporter
 #rm -rf ./process-exporter*
 
 # Configuration
-#sudo cp config/prometheus.yml /etc/prometheus/prometheus.yml
+sudo mv /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml.sav
+sudo cp config/prometheus.yml /etc/prometheus/prometheus.yml
 sudo cp config/rules.yml /etc/prometheus/rules.yml
 sudo cp config/config.yml /etc/process-exporter/config.yml
-#sudo cp config/alertmanager.yml /etc/alertmanager/alertmanager.yml
+sudo mv /etc/prometheus/alertmanager.yml /etc/prometheus/alertmanager.yml.sav
+sudo cp config/alertmanager.yml /etc/prometheus/alertmanager.yml
 
 # Systemd
 sudo cp service/process-exporter.service /etc/systemd/system/process-exporter.service
 
 # daemon reload + start services
 sudo systemctl start prometheus.service
-sudo systemctl start node_exporter.service
+#sudo systemctl start node_exporter.service
 sudo systemctl start process-exporter.service
-sudo systemctl start alertmanager.service
+#sudo systemctl start alertmanager.service
 
 # Verifications
 
 # enable
 sudo systemctl enable prometheus.service
-sudo systemctl enable node_exporter.service
+#sudo systemctl enable node_exporter.service
 sudo systemctl enable process-exporter.service
-sudo systemctl enable alertmanager.service
+#sudo systemctl enable alertmanager.service
 
 # Test alert-manager
 #curl -H "Content-Type: application/json" -d '[{"Test":{"Alert mail par Gmail":"Good !"}}]' localhost:9093/api/v1/alerts
@@ -59,6 +60,7 @@ echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/a
 sudo apt-get update
 sudo apt-get install grafana
 sudo systemctl start grafana-server.service
+sudo systemctl enable grafana-server.service
 
 # Plugins Grafana
 sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
