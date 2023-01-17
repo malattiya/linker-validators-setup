@@ -1,0 +1,24 @@
+#############################################
+# LE PORT 30334 DOIT ETRE OUVERT DANS LE FW #
+# NE PAS OUVRIR LE PORT 9944                #
+#############################################
+POLKADOT_CLI_ARGS=" \
+  --validator \
+  --chain polkadot \
+  --name 'LINKER NODE' \
+  --sync fast-unsafe \
+  --rpc-port 9944 \
+  --listen-addr /ip4/127.0.0.1/tcp/30334 \
+  --pruning 1000 \
+  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1'"
+#############################################
+# LE PORT 30333 DOIT ETRE OUVERT DANS LE FW #
+# NE PAS OUVRIR LE PORT 9933 (default)      #
+#############################################
+KUSAMA_CLI_ARGS=" \
+  --validator \
+  --chain kusama \
+  --name 'LINKER NODE' \
+  --sync fast-unsafe \
+  --pruning 1000 \
+  --telemetry-url 'wss://telemetry.polkadot.io/submit/ 1'"
