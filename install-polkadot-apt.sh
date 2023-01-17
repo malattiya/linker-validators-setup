@@ -29,8 +29,9 @@ apt install polkadot
 #polkadot purge-chain --chain kusama
 
 # Systemd
-sudo cp service/linker.ksm.service /etc/systemd/system/linker.ksm.service
-sudo cp service/linker.dot.service /etc/systemd/system/linker.dot.service
+sudo cp service/linkernode.ksm.service /etc/systemd/system/linkernode.ksm.service
+sudo cp service/linkernode.dot.service /etc/systemd/system/linkernode.dot.service
+sudo cp config/linkernode /etc/default/linkernode
 
 # Deamon-reload
 sudo systemctl daemon-reload
