@@ -35,7 +35,7 @@ sudo cp config/linkernode /etc/default/linkernode
 
 # Deamon-reload
 sudo systemctl daemon-reload
-#sudo systemctl start linker.ksm.service
-#sudo systemctl status linker.ksm.service
+#sudo systemctl start linkernode.ksm.service
+#sudo systemctl status linkernode.ksm.service
 
 # Verifications : journalctl -f -u 'LINKER NODE' -n100
