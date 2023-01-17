@@ -64,3 +64,4 @@ sudo systemctl enable grafana-server.service
 
 # Plugins Grafana
 sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
+sudo systemctl restart grafana-server.service
