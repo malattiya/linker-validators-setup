@@ -29,13 +29,10 @@ sudo chown process-exporter:process-exporter /usr/local/bin/process-exporter
 #sudo cp config/prometheus.yml /etc/prometheus/prometheus.yml
 sudo cp config/rules.yml /etc/prometheus/rules.yml
 sudo cp config/config.yml /etc/process-exporter/config.yml
-sudo cp config/alertmanager.yml /etc/alertmanager/alertmanager.yml
+#sudo cp config/alertmanager.yml /etc/alertmanager/alertmanager.yml
 
 # Systemd
-sudo cp service/prometheus.service /etc/systemd/system/prometheus.service
-sudo cp service/node_exporter.service /etc/systemd/system/node_exporter.service
 sudo cp service/process-exporter.service /etc/systemd/system/process-exporter.service
-sudo cp service/alertmanager.service /etc/systemd/system/alertmanager.service
 
 # daemon reload + start services
 sudo systemctl start prometheus.service
@@ -54,9 +51,6 @@ sudo systemctl enable alertmanager.service
 # Test alert-manager
 #curl -H "Content-Type: application/json" -d '[{"Test":{"Alert mail par Gmail":"Good !"}}]' localhost:9093/api/v1/alerts
 
-# Plugins Grafana
-sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
-
 ## Add Grafana + install
 sudo apt-get install -y apt-transport-https
 sudo apt-get install -y software-properties-common wget
@@ -65,3 +59,6 @@ echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/a
 sudo apt-get update
 sudo apt-get install grafana
 sudo systemctl start grafana-server.service
+
+# Plugins Grafana
+sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
