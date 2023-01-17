@@ -1,3 +1,7 @@
+#MISE A JOUR OS
+sudo apt-get update
+sudo apt upgrade
+
 # PREREQUIS
 sudo apt install sudo wget curl pgp ufw git
 
